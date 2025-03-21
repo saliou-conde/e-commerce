@@ -13,3 +13,6 @@
 [submodule "notification"]
 	path = notification
 	url = https://github.com/saliou-conde/notification.git
+[submodule "order"]
+	path = order
+	url = https://github.com/saliou-conde/order.git
