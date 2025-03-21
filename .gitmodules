@@ -10,3 +10,6 @@
 [submodule "customer"]
 	path = customer
 	url = https://github.com/saliou-conde/customer.git
+[submodule "notification"]
+	path = notification
+	url = https://github.com/saliou-conde/notification.git
