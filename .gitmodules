@@ -16,3 +16,6 @@
 [submodule "order"]
 	path = order
 	url = https://github.com/saliou-conde/order.git
+[submodule "payment"]
+	path = payment
+	url = https://github.com/saliou-conde/payment.git
