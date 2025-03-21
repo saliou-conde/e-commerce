@@ -7,3 +7,6 @@
 [submodule "gateway"]
 	path = gateway
 	url = https://github.com/saliou-conde/gateway.git
+[submodule "customer"]
+	path = customer
+	url = https://github.com/saliou-conde/customer.git
