@@ -11,8 +11,8 @@ spring:
   mail:
     host: localhost
     port: 1025
-    username: admin
-    password: admin
+    username: ${MAIL_DEV_USERNAME}
+    password: ${MAIL_DEV_PASSWORD}
     properties:
       mail:
         smtp:
