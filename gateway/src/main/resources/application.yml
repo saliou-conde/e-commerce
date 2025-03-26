@@ -1,0 +1,16 @@
+spring:
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/conde
+          jwk-set-uri: ${spring.security.oauth2.resource-server.jwt.issuer-uri}/protocol/openid-connect/certs
+  config:
+    import: optional:configserver:http://localhost:8888
+  application:
+    name: gateway-service
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
