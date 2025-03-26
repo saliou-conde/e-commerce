@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
+      host: ${DB_URL}
+      port: ${DB_PORT}
+      authentication-database: ${DB_USERNAME}
+      database: ${DB_NAME}
+
+#
+server:
+  port: 8090
