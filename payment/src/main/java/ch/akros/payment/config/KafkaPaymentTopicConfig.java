@@ -4,6 +4,7 @@ import ch.akros.payment.kafka.PaymentNotificationRequest;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
@@ -18,6 +19,8 @@ import java.util.Map;
 @Configuration
 public class KafkaPaymentTopicConfig {
 
+  @Value("${kafka.payment.topic}")
+  private String paymentTopic;
   private final Map<String, Object> configProps = new HashMap<>();
 
   @Bean
@@ -39,6 +42,6 @@ public class KafkaPaymentTopicConfig {
 
   @Bean
   public NewTopic createOrderTopic() {
-    return TopicBuilder.name("payment-topic").build();
+    return TopicBuilder.name(paymentTopic).build();
   }
 }
