@@ -89,7 +89,7 @@ public class CustomerController {
           }
   )
   @GetMapping("/{id}")
-  public ResponseEntity<CustomerResponse> getCustomer(@PathVariable String id) {
+  public ResponseEntity<CustomerResponse> getCustomer(@PathVariable("id") String id) {
     return ResponseEntity.ok(customerService.findCustomerById(id));
   }
 
