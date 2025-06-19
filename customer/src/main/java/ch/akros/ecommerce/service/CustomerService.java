@@ -3,11 +3,14 @@ package ch.akros.ecommerce.service;
 import ch.akros.ecommerce.controller.dto.CustomerMapper;
 import ch.akros.ecommerce.controller.dto.CustomerRequest;
 import ch.akros.ecommerce.controller.dto.CustomerResponse;
+import ch.akros.ecommerce.exception.CustomerAlreadyExistException;
 import ch.akros.ecommerce.exception.CustomerNotFoundException;
 import ch.akros.ecommerce.model.Customer;
 import ch.akros.ecommerce.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,21 +21,31 @@ import static java.lang.String.format;
 @RequiredArgsConstructor
 public class CustomerService {
 
+  private static final Logger log = LoggerFactory.getLogger(CustomerService.class);
   private final CustomerRepository repository;
   private final CustomerMapper mapper;
 
   public String createCustomer(CustomerRequest request) {
+    log.info("Starting createCustomer(CustomerRequest request)");
+    var customerByEmail = repository.findByEmail(request.email());
+    if(customerByEmail.isPresent()) {
+      throw new CustomerAlreadyExistException(format("Customer already exists:: Customer found with the provided email:: %s", request.email()));
+    }
     var customer = repository.save(mapper.toCustomer(request));
+    log.info("End createCustomer(CustomerRequest request)");
     return customer.getId();
   }
 
   public void updateCustomer(CustomerRequest request) {
+    log.info("Starting updateCustomer(CustomerRequest request)");
     var customer = getCustomerById(request.id(), "Cannot update customer:: No customer found with the provided Id:: %s");
     mergeCustomer(customer, request);
+    log.info("End updateCustomer(CustomerRequest request)");
     repository.save(customer);
   }
 
   public List<CustomerResponse> findAllCustomers() {
+    log.info("Starting findAllCustomers()");
     return repository.findAll().stream().map(mapper::fromCustomer).toList();
   }
 

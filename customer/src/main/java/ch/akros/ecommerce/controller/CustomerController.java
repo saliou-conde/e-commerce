@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/customers")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class CustomerController {
 
   private final CustomerService customerService;
@@ -108,7 +107,7 @@ public class CustomerController {
           }
   )
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteCustomer(@PathVariable String id) {
+  public ResponseEntity<Void> deleteCustomer(@PathVariable("id") String id) {
     customerService.deleteCustomerById(id);
     return ResponseEntity.accepted().build();
   }

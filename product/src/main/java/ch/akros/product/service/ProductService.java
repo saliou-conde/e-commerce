@@ -9,9 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.String.format;
 
@@ -56,7 +54,9 @@ public class ProductService {
   }
 
   public List<ProductResponse> getAllProducts() {
-    return repository.findAll().stream().map(mapper::mapProductToProductResponse).toList();
+    var productResponses = new ArrayList<>(repository.findAll().stream().map(mapper::mapProductToProductResponse).toList());
+    productResponses.sort(Comparator.naturalOrder());
+    return productResponses;
   }
 
   public ProductResponse updateProduct(ProductRequest request) {
