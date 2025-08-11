@@ -5,6 +5,7 @@ import ch.akros.product.controller.dto.ProductPurchaseResponse;
 import ch.akros.product.controller.dto.ProductRequest;
 import ch.akros.product.controller.dto.ProductResponse;
 import ch.akros.product.service.ProductService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -101,7 +102,8 @@ class ProductControllerTest {
     var response = controller.getProductById(1);
 
     //Then
-    assertThat(response.getBody().id()).isEqualTo(1);
+      Assertions.assertNotNull(response.getBody());
+      assertThat(response.getBody().id()).isEqualTo(1);
   }
 
   @Test
@@ -129,7 +131,8 @@ class ProductControllerTest {
     var response = controller.updateProduct(productRequest);
 
     //Then
-    assertThat(response.getBody().id()).isEqualTo(1);
+      Assertions.assertNotNull(response.getBody());
+      assertThat(response.getBody().id()).isEqualTo(1);
 
     //Verify
     verify(service, times(1)).updateProduct(productRequest);

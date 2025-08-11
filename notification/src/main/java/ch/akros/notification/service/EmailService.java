@@ -59,7 +59,7 @@ public class EmailService {
       mimeMessageHelper.setText(htmlTemplate, true);
       mimeMessageHelper.setTo(destinationEmail);
       mailSender.send(mimeMessage);
-      log.info(String.format("Payment Email successfully sent to %s with the the template %s", destinationEmail, templateName));
+      log.info("Payment Email successfully sent to {} with the the template {}", destinationEmail, templateName);
     } catch (MessagingException e) {
       log.warn("Failed to send email to {}", destinationEmail, e);
     }
@@ -95,7 +95,7 @@ public class EmailService {
       mimeMessageHelper.setText(htmlTemplate, true);
       mimeMessageHelper.setTo(destinationEmail);
       mailSender.send(mimeMessage);
-      log.info(String.format("Order Email successfully sent to %s with the the template %s", destinationEmail, templateName));
+      log.info("Order Email successfully sent to {} with the the template {}", destinationEmail, templateName);
     } catch (MessagingException e) {
       log.warn("Failed to send email to {}", destinationEmail, e);
     }

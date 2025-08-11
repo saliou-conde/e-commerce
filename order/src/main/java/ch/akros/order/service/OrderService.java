@@ -11,8 +11,7 @@ import ch.akros.order.kafka.OrderProducer;
 import ch.akros.order.model.Order;
 import ch.akros.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,9 +20,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
-  private static final Logger log = LoggerFactory.getLogger(OrderService.class);
   private final OrderRepository orderRepository;
   private final OrderLineService orderLineService;
   private final OrderMapper mapper;
@@ -57,8 +56,8 @@ public class OrderService {
   }
 
   public List<OrderResponse> findAll() {
-    var orders = orderRepository.findAll();
-    return orders.stream().map(mapper::mapOrderToOrderResponse).toList();
+    return orderRepository.findAll().stream()
+            .map(mapper::mapOrderToOrderResponse).toList();
   }
 
   public OrderResponse findOrderById(Integer id) {
@@ -70,8 +69,9 @@ public class OrderService {
 
   private CustomerResponse prepareCustomerResponse(OrderRequest orderRequest) {
     try {
-      return customerClient.findCustomerById(orderRequest.customerId())
-              .orElseThrow(() -> new BusinessException("Cannot create order:: No customer exists with the provided ID" + orderRequest.customerId()));
+      var customerId = orderRequest.customerId();
+      return customerClient.findCustomerById(customerId)
+              .orElseThrow(() -> new BusinessException("Cannot create order:: No customer exists with the provided ID" + customerId));
     } catch (BusinessException e) {
       throw new BusinessException(e.getMessage());
     }
